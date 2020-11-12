@@ -10,7 +10,7 @@ function getByUsername(username){
 }
 
 async function createUser(email, username, password, pfp, location){
-    const hash = bcrypt.hashSync(password, process.env.NUM_OF_HASHES);
+    const hash = bcrypt.hashSync(password, Number(process.env.NUM_OF_HASHES));
     const data = {email, username, password: hash, location};
     //only sets pfp attribute if one is given
     //if not given it will default to value set in table migration
