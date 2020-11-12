@@ -9,7 +9,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists("potlucks", table=>{
-
-    });
+    return knex.schema.dropTableIfExists("potlucks");
 };
