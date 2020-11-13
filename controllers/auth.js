@@ -1,3 +1,26 @@
+const db = require("../models/users");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+async function signup(req, res){
+    const {email, username, password, pfp, location} = req.body;
+
+    if(!email) return res.status(400).json({message: "Email required"});
+    if(!username) return res.status(400).json({message: "Username required"});
+    if(!password) return res.status(400).json({message: "Password required"});
+
+    try {
+        const userExists = await db.getByUsername(username);
+        if(userExists) return res.status(400).json({message: "Username taken"});
+
+        const newUser = await db.createUser(email, username, password, pfp, location);
+        res.status(201).json({user: newUser, message: "Your account was created"});
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: "A server error occurred", err});
+    }
+}
+
 async function auth (req, res, next) {
 		try {
 			const { username, password } = req.body;
@@ -25,4 +48,5 @@ async function auth (req, res, next) {
 
 module.exports = {
     auth,
+    signup
 }
