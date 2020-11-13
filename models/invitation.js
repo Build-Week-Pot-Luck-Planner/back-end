@@ -9,6 +9,21 @@ function getInvitedGuestsByPotluckId(potluckID) {
         .select("p.title", "u.username")
 }
 
+function addInvite(data) {
+    return db("invitation as i").insert(data);
+}
+
+function updateInvite(changes, id) {
+    return db("invitation as i").where("id", id).update(changes);
+}
+
+function removeInvite(id) {
+    return db("invitation as i").where("id", id).del();
+}
+
 module.exports = {
     getInvitedGuestsByPotluckId,
+    addInvite,
+    updateInvite,
+    removeInvite
 }

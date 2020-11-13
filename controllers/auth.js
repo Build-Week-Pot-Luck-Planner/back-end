@@ -1,5 +1,4 @@
-function auth() {
-	async (req, res, next) => {
+async function auth (req, res, next) {
 		try {
 			const { username, password } = req.body;
 			const user = await db.getByUsername(username);
@@ -15,7 +14,7 @@ function auth() {
 				},
 				process.env.JWT_SECRET
 			);
-			res.cookie("token", token);
+			
 			res.json({
 				message: `Welcome ${user.username}`,
 			});
@@ -23,7 +22,6 @@ function auth() {
 			next(err);
 		}
 	};
-}
 
 module.exports = {
     auth,
