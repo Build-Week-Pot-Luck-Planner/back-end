@@ -33,7 +33,7 @@ async function auth (req, res, next) {
 					message: "Invalid Credentials",
 				});
 			}
-			const token = generateToken({id: user.id}),
+			const token = generateToken({id: user.id});
 			
 			res.json({
 				token,
