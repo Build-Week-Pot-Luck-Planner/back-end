@@ -33,15 +33,7 @@ async function auth (req, res, next) {
 					message: "Invalid Credentials",
 				});
 			}
-			const token = jwt.sign(
-				{
-					id: user.id,
-				},
-				process.env.JWT_SECRET,
-				{
-					expiresIn: "1d"
-				}
-			);
+			const token = generateToken({id: user.id}),
 			
 			res.json({
 				token,
