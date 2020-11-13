@@ -65,7 +65,7 @@ async function getUserWithPotlucks(userId){
     .leftJoin("potlucks as p", "p.organizerId", "u.id")
     .where("u.id", userId)
     .select("u.id", "u.username", "u.email", "u.pfp", "u.location",
-    "p.id", "p.title", "p.organizerId", "p.when", "p.location")
+    "p.id as potluckId", "p.title", "p.organizerId", "p.when", "p.location")
     .first();
 
     return user;
