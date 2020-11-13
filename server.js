@@ -1,5 +1,5 @@
 //only use dotenv config if in development
-if(process.env.NODE_ENV === "development") require("dotenv").config();
+if(process.env.NODE_ENV != "production") require("dotenv").config();
 
 const express = require('express');
 const server = express();
