@@ -15,7 +15,7 @@ async function createUser(email, username, password, pfp, location){
     //only sets pfp attribute if one is given
     //if not given it will default to value set in table migration
     if(pfp) data.pfp = pfp;
-    const newUserId  = await db("users").insert(data);
+    const newUserId  = await db("users").insert(data).returning("id");
     
     const newUser = await db("users").where({id: newUserId[0]}).first();
     delete newUser.password;
