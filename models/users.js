@@ -62,12 +62,15 @@ async function getUserWithPotlucks(userId){
     if(!userId) throw new Error("User id must be provided");
 
     const user = await db("users as u")
-    .leftJoin("potlucks as p", "p.organizerId", "u.id")
     .where("u.id", userId)
-    .select("u.id", "u.username", "u.email", "u.pfp", "u.location",
-    "p.id as potluckId", "p.title", "p.organizerId", "p.when", "p.location")
+    .select("u.id", "u.username", "u.email", "u.pfp", "u.location")
     .first();
+    if(!user) return res.status(401).json({message: "User does not exist"});
 
+    const potlucks = await db("potlucks as p")
+    .where("p.organizerId", userId)
+    .select("p.id as potluckId", "p.title", "p.organizerId", "p.when", "p.location");
+    user.potlucks = potlucks;
     return user;
 }
 
