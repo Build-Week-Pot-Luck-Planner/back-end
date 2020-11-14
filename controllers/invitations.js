@@ -36,13 +36,22 @@ async function post(req, res, next) {
 //UPDATE INVITED GUESTS
 async function put(req, res, next) {
 	try {
-		const { id } = req.params;
-		const updateInvitedGuests = await db.updateInvite(req.body, id);
-		res.status(200).json(updateInvitedGuests);
+		const { inviteId } = req.params;
+		await db.updateInvite(req.body, inviteId);
+		if (changes.status === 1) {
+			res.status(200).json({
+				message: "Congrats - you are on the guestlist",
+			});
+		} else {
+			res.status(200).json({
+				message: "Hope to see you at the next one!",
+			});
+		}
 	} catch (err) {
 		next(err);
 	}
 }
+///I AM NOT GOING BUTTON
 async function del(req, res, next) {
 	try {
 		const { id } = req.params;
