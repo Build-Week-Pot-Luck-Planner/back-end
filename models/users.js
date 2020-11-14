@@ -42,6 +42,17 @@ async function updateUser(userId, changes){
         pfp: (changes.pfp)? changes.pfp: undefined,
         location: (changes.location)? changes.location: undefined
     }
+
+    let userAlreadyExists = await db("users")
+    .where(function(){
+        this.where({username: changes.username || null})
+        .orWhere({email: changes.email || null}).first()
+    }).andWhere("id", "<>", userId).first();
+
+    console.log(userAlreadyExists, changes)
+    if(userAlreadyExists && userAlreadyExists.username == changes.username) return {err: "Username taken"};
+    if(userAlreadyExists && userAlreadyExists.email == changes.email) return {err: "Email taken"};
+
     // knex won't allow us to push an empty object to the .update method
     // this variable tracks if the changes object only has undefined values
     // if it does, we will skip the update query and just return the user object as is
