@@ -40,14 +40,18 @@ knexfile.js
 
 # API Documentation
 
-Base Url: https://bw-potluckplanner.herokuapp.com/
+Base Url: https://bw-potluckplanner.herokuapp.com/  
+Routes marked with *(required)* require Authorizaton header set with JWT
 
 ## Endpoints
 
 ### **[GET] /api**
 Base endpoint; can use to check if its up and running
 
-Returns: "Welcome to the API"
+Returns: 
+``` 
+"Welcome to the API"
+```
 
 ### **[POST] /api/auth/login**
 Logs in user
