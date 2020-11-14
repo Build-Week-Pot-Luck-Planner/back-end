@@ -9,6 +9,10 @@ function getByUsername(username){
     return db("users").where({username}).first();
 }
 
+function getById(userId){
+    return db("users").where({id: userId}).first();
+}
+
 async function createUser(email, username, password, pfp, location){
     const hash = bcrypt.hashSync(password, Number(process.env.NUM_OF_HASHES));
     const data = {email, username, password: hash, location};
@@ -77,6 +81,7 @@ async function getUserWithPotlucks(userId){
 module.exports = {
     getUsers,
     getByUsername,
+    getById,
     createUser,
     updateUser,
     deleteUser,
