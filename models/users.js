@@ -49,7 +49,6 @@ async function updateUser(userId, changes){
         .orWhere({email: changes.email || null}).first()
     }).andWhere("id", "<>", userId).first();
 
-    console.log(userAlreadyExists, changes)
     if(userAlreadyExists && userAlreadyExists.username == changes.username) return {err: "Username taken"};
     if(userAlreadyExists && userAlreadyExists.email == changes.email) return {err: "Email taken"};
 
