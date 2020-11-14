@@ -5,5 +5,6 @@ const {restricted} = require("../middleware/auth");
 
 router.get("/", restricted, usersController.getUsers);
 router.get("/:userId", restricted, usersController.getUser);
+router.put("/:userId", restricted, usersController.updateUser);
 
 module.exports = router;
