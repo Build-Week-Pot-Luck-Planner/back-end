@@ -41,8 +41,22 @@ async function updateUser(req, res){
     }
 }
 
+async function deleteUser(req, res){
+    const userId = req.params.userId;
+    if(req.user.id != userId) return res.status(403).json({message: "Unauthorized"});
+
+    try {
+        const deletedUser = await db.deleteUser(userId);
+        res.status(200).json({message: "You account was deleted", user: deletedUser});
+    }catch(err) {
+        console.log(err);
+        res.status(500).json({message: "A server error occurred", err});
+    }
+}
+
 module.exports = {
     getUsers,
     getUser,
-    updateUser
+    updateUser,
+    deleteUser
 }
