@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const inviteController = require("../controllers/invitations");
 
-router.get("/invitation/:id", inviteController.getGuests);
+router.get("/potluck/:id/invitation", inviteController.getGuests);
 router.get("/users/:id/invitations", inviteController.getPotluckInvites);
-router.post("/invitations", inviteController.post);
-router.put("/invitations/:id", inviteController.put);
-router.delete("/invitations/:id", inviteController.del);
+router.post("/potluck/:id/invitation", inviteController.post);
+router.put("/potluck/:id/invitation", inviteController.put);
+router.delete("/potluck/:id/invitation", inviteController.del);
 
 
 
