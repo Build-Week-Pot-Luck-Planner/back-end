@@ -17,7 +17,8 @@ async function getUser(req, res){
     
     try {
         const user = await db.getUserWithPotlucks(userId);
-        return res.status(200).json({user});
+        if(user.err) return res.status(404).json({message: "User not found"});
+        res.status(200).json({user});
     }catch(err){
         console.log(err);
         res.status(500).json({message: "A server error occurred", err});
