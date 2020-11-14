@@ -40,7 +40,7 @@ knexfile.js
 
 # API Documentation
 
-Base Url: https://bw-potluckplanner.herokuapp.com/  
+Base url: https://bw-potluckplanner.herokuapp.com/  
 Routes marked with *(required)* require Authorizaton header set with JWT
 
 ## Endpoints
@@ -71,6 +71,24 @@ Returns:
     {
         token: jwtToken,
         message: "Your account was created"
+    }
+
+### **[GET] api/users?username=value (restricted)**
+Gets array of users based on optional search query  
+
+*not setting `?username=value` will return all users
+
+Returns:
+
+    {
+        users: [
+            {
+                email: user's email,
+                username: user's username,
+                pfp: user's profile pic,
+                location: user's location
+            }...
+        ]
     }
 
 ### **[GET] api/users/:userId (restricted)**
