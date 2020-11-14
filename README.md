@@ -37,3 +37,59 @@ index.js
 knexfile.js
 .env
 ```
+
+# API Documentation
+
+Base Url: https://bw-potluckplanner.herokuapp.com/
+
+## Endpoints
+
+### **[GET] /api**
+Base endpoint; can use to check if its up and running
+
+Returns: "Welcome to the API"
+
+### **[POST] /api/auth/login**
+Logs in user
+
+Returns:
+
+    {
+        token: jwtToken,
+        message: "Welcome username"
+    }
+
+### **[POST] /api/auth/signup**
+Signs up new user
+
+Returns:
+
+    {
+        token: jwtToken,
+        message: "Your account was created"
+    }
+
+### **[GET] api/users/:userId (restricted)**
+Gets user info with list of potlucks they've created
+
+Returns:
+
+    {
+        user: {
+            id: user's id,
+            username: user's username,
+            email: user's email,
+            pfp: user's profile pic,
+            location: user's location,
+            potlucks: [
+                {
+                    potluckId: potluck's id,
+                    title: potluck's title,
+                    organizerId: organizer's id,
+                    when: datetime of when potluck will take place
+                    location: potluck's location
+                }...
+            ]
+        }
+    }
+    
