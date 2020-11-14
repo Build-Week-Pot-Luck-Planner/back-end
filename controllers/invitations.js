@@ -38,7 +38,7 @@ async function put(req, res, next) {
 	try {
 		const { inviteId } = req.params;
 		await db.updateInvite(req.body, inviteId);
-		if (changes.status === 1) {
+		if (req.body.status === 1) {
 			res.status(200).json({
 				message: "Congrats - you are on the guestlist",
 			});

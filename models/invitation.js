@@ -27,22 +27,18 @@ function addInvite(data, id) {
 
 async function updateInvite(changes, id) {
 	const invitationInfo = await db("invitation as i")
-		.innerJoin("potlucks as p", "p.id", "i.potluckId")
-		.where("p.id", id);
-
+    .where("i.id", id);
 	await db("invitation as i")
-		.innerJoin("potlucks as p", "p.id", "i.potluckId")
-		.where("p.id", id)
+		.where("i.id", id)
 		.del();
-
 	if (changes.status === 1) {
 		return db("eventGuests as e")
 			.innerJoin("potlucks as p", "p.id", "i.potluckId")
 			.where("p.id", id)
 			.insert({
 				guestId: invitationInfo.guestId,
-				potluck: invitationInfo.potluckId,
-            });
+				potluckId: invitationInfo.potluckId,
+			});
 	}
 }
 
