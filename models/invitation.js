@@ -9,6 +9,15 @@ function getInvitedGuestsByPotluckId(potluckID) {
         .select("p.title", "u.username")
 }
 
+function getPotlucksUserIsInvitedTo(userID) {
+	//Returns a list of all guests invited to the potluck
+	return db("users as u")
+		.innerJoin("invitation as i", "i.guestId", "u.id")
+		.innerJoin("potlucks as p", "p.id", "i.potluckId")
+		.where("u.id", userID)
+		.select("p.title", "p.date", "p.location");
+}
+
 function addInvite(data) {
     return db("invitation as i").insert(data);
 }
@@ -23,6 +32,7 @@ function removeInvite(id) {
 
 module.exports = {
     getInvitedGuestsByPotluckId,
+    getPotlucksUserIsInvitedTo,
     addInvite,
     updateInvite,
     removeInvite
