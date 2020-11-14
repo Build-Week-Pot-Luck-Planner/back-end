@@ -2,7 +2,7 @@ const db = require("../data/db");
 const bcrypt = require("bcryptjs");
 
 function getUsers(username=""){
-    return db("users").where("username", "like", `${username}%`).select("email", "username", "pfp", "location");
+    return db("users").where("username", "like", `${username}%`).select("id", "email", "username", "pfp", "location");
 }
 
 function getByUsername(username){
