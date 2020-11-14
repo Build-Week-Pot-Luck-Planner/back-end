@@ -38,7 +38,7 @@ async function updateUser(userId, changes){
     changes = {
         email: (changes.email)? changes.email: undefined, 
         username: (changes.username)? changes.username: undefined,
-        password: (changes.password)? bcrypt.hashSync(changes.password, process.env.NUM_OF_HASHES): undefined,
+        password: (changes.password)? bcrypt.hashSync(changes.password, Number(process.env.NUM_OF_HASHES)): undefined,
         pfp: (changes.pfp)? changes.pfp: undefined,
         location: (changes.location)? changes.location: undefined
     }
