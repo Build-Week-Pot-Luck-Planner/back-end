@@ -79,7 +79,7 @@ async function getUserWithPotlucks(userId){
     .where("u.id", userId)
     .select("u.id", "u.username", "u.email", "u.pfp", "u.location")
     .first();
-    if(!user) return res.status(401).json({message: "User does not exist"});
+    if(!user) return {err: "User does not exist"};
 
     const potlucks = await db("potlucks as p")
     .where("p.organizerId", userId)
