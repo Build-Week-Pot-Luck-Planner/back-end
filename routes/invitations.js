@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const inviteController = require("../controllers/invitations");
 const { restricted } = require("../middleware/auth");
-router.get("/potluck/:id/invitation", restricted, inviteController.getGuests);
+router.get("/potluck/:id/invitation", restricted, inviteController.getInvitedGuests);
 router.get(
 	"/users/:id/invitations",
 	restricted,

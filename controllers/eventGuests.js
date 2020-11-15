@@ -5,7 +5,12 @@ async function getEventGuests(req, res, next) {
 	try {
 		const { id } = req.params;
 		const attendingGuests = await db.getAttendingGuestsByPotluckId(id);
-		res.status(200).json(attendingGuests);
+        if (!attendingGuests) {
+            return res.status(404).json({
+                 message: "no such potluck"
+             });
+        }
+        res.status(200).json(attendingGuests);
 	} catch (err) {
 		next(err);
 	}

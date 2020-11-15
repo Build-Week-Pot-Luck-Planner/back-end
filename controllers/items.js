@@ -5,6 +5,11 @@ async function getItems(req, res, next) {
 	try {
 		const { id } = req.params;
 		const items = await db.getItemsByPotluckId(id);
+		if (!items) {
+			return res.status(404).json({
+				message: "this potluck does not have any items",
+			});
+		}
 		res.status(200).json(items);
 	} catch (err) {
 		next(err);
@@ -16,6 +21,11 @@ async function getItemsUserNeedsToBring(req, res, next) {
 	try {
 		const { id } = req.params;
 		const usersItems = await db.getItemsByUserId(id);
+		if (!usersItems) {
+			return res.status(404).json({
+				message: "you have not yet selected what you will bring anything to this potluck",
+			});
+		}
 		res.status(200).json(usersItems);
 	} catch (err) {
 		next(err);
@@ -36,8 +46,14 @@ async function post(req, res, next) {
 //UPDATE ITEMS
 async function put(req, res, next) {
 	try {
-        const { id } = req.params;
-		const updateItems = await db.updateItems(req.body.item, id);
+        const { itemId } = req.params;
+		const updateItems = await db.updateItems(req.body.item, itemId);
+		if (!updateItems) {
+			return res.status(404).json({
+				message:
+					"you need to add this item before you can edit it.",
+			});
+		}
 		res.status(200).json(updateItems);
 	} catch (err) {
 		next(err);
@@ -46,10 +62,15 @@ async function put(req, res, next) {
 //DELETE AN ITEM
 async function del(req, res, next) {
 	try {
-        const { id } = req.params;
-		await db.removeItem(id);
+        const { itemId } = req.params;
+		const deleteItem = await db.removeItem(id);
+		if (!deleteItem) {
+			return res.status(404).json({
+				message: "item cannot be deleted as it does not exist.",
+			});
+		}
 		res.status(200).json({
-			message: "You have been removed from the guestlist of this potluck",
+			message: "You have removed this item from the potluck",
 		});
 	} catch (err) {
 		next(err);

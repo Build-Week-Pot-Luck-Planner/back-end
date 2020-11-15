@@ -5,6 +5,11 @@ async function getInvitedGuests(req, res, next) {
 	try {
 		const { id } = req.params;
 		const invitedGuests = await db.getInvitedGuestsByPotluckId(id);
+		if (!invitedGuests) {
+			return res.status(404).json({
+				message: "no guests invited",
+			});
+		}
 		res.status(200).json(invitedGuests);
 	} catch (err) {
 		next(err);
@@ -16,6 +21,11 @@ async function getPotluckInvites(req, res, next) {
 	try {
 		const { id } = req.params;
 		const potluckInvites = await db.getInvitedGuestsByPotluckId(id);
+		if (!potluckInvites) {
+			return res.status(404).json({
+				message: "you have not been invited to any potlucks yet",
+			});
+		}
 		res.status(200).json(potluckInvites);
 	} catch (err) {
 		next(err);
