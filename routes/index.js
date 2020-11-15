@@ -6,13 +6,18 @@ const items = require("./items");
 const invites = require("./invitations")
 router.get("/", (req, res)=>{
     res.send("Welcome to the API");
-})
+});
 
 const authRoutes = require("./auth");
+const userRoutes = require("./users");
 
 router.use('/auth', authRoutes);
+
 router.use('/potlucks', invitesRouter )
 router.use("/potlucks/:id", eventGuests);
 router.use("/", items);
 router.use("/", invites);
+router.use("/users", userRoutes);
+
+
 module.exports = router;
