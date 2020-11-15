@@ -4,11 +4,11 @@ const eventGuestsController = require("../controllers/eventGuests");
 const { restricted } = require("../middleware/auth");
 
 router.get(
-	"/potluck/:id/eventGuests",
+	"/eventGuests",
 	restricted, eventGuestsController.getEventGuests
 );
 router.delete(
-	"/potluck/:id/eventGuests/:guestId",
+	"/eventGuests/:guestId",
 	restricted,
 	eventGuestsController.delEventGuests
 );
