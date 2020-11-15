@@ -1,7 +1,7 @@
 const db = require("../models/invitation");
 
 //GET ALL THE PEOPLE WHO ARE INVITED TO A PARTICULAR POTLUCK
-async function getGuests(req, res, next) {
+async function getInvitedGuests(req, res, next) {
 	try {
 		const { id } = req.params;
 		const invitedGuests = await db.getInvitedGuestsByPotluckId(id);
@@ -65,7 +65,7 @@ async function del(req, res, next) {
 }
 
 module.exports = {
-	getGuests,
+	getInvitedGuests,
 	getPotluckInvites,
 	post,
 	put,
