@@ -2,11 +2,15 @@ const db = require("../data/db");
 const bcrypt = require("bcryptjs");
 
 function getUsers(username=""){
-    return db("users").where("username", "like", `${username}%`).select("email", "username", "pfp", "location");
+    return db("users").where("username", "like", `${username}%`).select("id", "email", "username", "pfp", "location");
 }
 
 function getByUsername(username){
     return db("users").where({username}).first();
+}
+
+function getById(userId){
+    return db("users").where({id: userId}).first();
 }
 
 async function createUser(email, username, password, pfp, location){
@@ -34,10 +38,20 @@ async function updateUser(userId, changes){
     changes = {
         email: (changes.email)? changes.email: undefined, 
         username: (changes.username)? changes.username: undefined,
-        password: (changes.password)? bcrypt.hashSync(changes.password, process.env.NUM_OF_HASHES): undefined,
+        password: (changes.password)? bcrypt.hashSync(changes.password, Number(process.env.NUM_OF_HASHES)): undefined,
         pfp: (changes.pfp)? changes.pfp: undefined,
         location: (changes.location)? changes.location: undefined
     }
+
+    let userAlreadyExists = await db("users")
+    .where(function(){
+        this.where({username: changes.username || null})
+        .orWhere({email: changes.email || null}).first()
+    }).andWhere("id", "<>", userId).first();
+
+    if(userAlreadyExists && userAlreadyExists.username == changes.username) return {err: "Username taken"};
+    if(userAlreadyExists && userAlreadyExists.email == changes.email) return {err: "Email taken"};
+
     // knex won't allow us to push an empty object to the .update method
     // this variable tracks if the changes object only has undefined values
     // if it does, we will skip the update query and just return the user object as is
@@ -58,10 +72,28 @@ async function deleteUser(userId){
     return userToDelete;
 }
 
+async function getUserWithPotlucks(userId){
+    if(!userId) throw new Error("User id must be provided");
+
+    const user = await db("users as u")
+    .where("u.id", userId)
+    .select("u.id", "u.username", "u.email", "u.pfp", "u.location")
+    .first();
+    if(!user) return {err: "User does not exist"};
+
+    const potlucks = await db("potlucks as p")
+    .where("p.organizerId", userId)
+    .select("p.id as potluckId", "p.title", "p.organizerId", "p.when", "p.location");
+    user.potlucks = potlucks;
+    return user;
+}
+
 module.exports = {
     getUsers,
     getByUsername,
+    getById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserWithPotlucks
 }
