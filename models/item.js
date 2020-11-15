@@ -16,22 +16,31 @@ function getItemsByUserId(userID) {
 		.select("i.*");
 }
 
-function addItem(data) {
-	return db("item as i").insert(data);
+function addItem(data, id) {
+	return db("item as i")
+		.innerJoin("potlucks as p", "p.id", "i.potluckId")
+		.where("p.id", id)
+		.insert(data);
 }
 
-function updateItem(changes, id) {
-	return db("item as i").where("id", id).update(changes);
+function updateItems(changes, id) {
+	return db("item as i")
+		.innerJoin("potlucks as p", "p.id", "i.potluckId")
+		.where("p.id", id)
+		.update(changes);
 }
 
 function removeItem(id) {
-	return db("item as i").where("id", id).del();
+	return db("item as i")
+		.innerJoin("potlucks as p", "p.id", "i.potluckId")
+		.where("p.id", id)
+		.del();
 }
 
 module.exports = {
 	getItemsByUserId,
 	getItemsByPotluckId,
 	addItem,
-	updateItem,
+	updateItems,
 	removeItem,
 };
