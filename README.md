@@ -56,6 +56,14 @@ Returns:
 ### **[POST] /api/auth/login**
 Logs in user
 
+Accepts:
+
+    {
+        username,
+        password
+    }
+
+
 Returns:
 
     {
@@ -65,6 +73,16 @@ Returns:
 
 ### **[POST] /api/auth/signup**
 Signs up new user
+
+Accepts: 
+
+    {
+        email,
+        username,
+        password,
+        location (optional),
+        pfp (optional)
+    }
 
 Returns:
 
@@ -83,6 +101,7 @@ Returns:
     {
         users: [
             {
+                id: user's id,
                 email: user's email,
                 username: user's username,
                 pfp: user's profile pic,
@@ -114,4 +133,47 @@ Returns:
             ]
         }
     }
-    
+
+### **[PUT] api/users/:userId (restricted)**
+Updates info about a user
+
+Accepts:
+
+    {
+        username (optional),
+        email (optional),
+        password (optional),
+        location (optional),
+        pfp (optional)
+    }
+
+Returns:
+
+    {
+        message: "Your account info was updated",
+        user: {
+            id
+            username,
+            email,
+            password,
+            location,
+            pfp
+        }
+    }
+
+### **[DELETE] /api/users/:userId (restricted)**
+Deletes a users account
+
+Returns:
+
+    {
+        message: "Your account was deleted,
+        user: {
+            id,
+            username,
+            email,
+            password,
+            location,
+            pfp
+        }
+    }
