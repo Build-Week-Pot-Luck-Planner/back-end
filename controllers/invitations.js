@@ -36,8 +36,10 @@ async function getPotluckInvites(req, res, next) {
 async function post(req, res, next) {
 	try {
 		const { id } = req.params;
-		const inviteGuests = await db.addInvite(req.body, id);
-		res.status(200).json(inviteGuests);
+		await db.addInvite(req.body, id);
+		res.status(200).json({
+			message: `${req.body.username} successfully invited`
+		});
 	} catch (err) {
 		next(err);
 	}
@@ -46,6 +48,7 @@ async function post(req, res, next) {
 //UPDATE INVITED GUESTS
 async function put(req, res, next) {
 	try {
+		console.log("err");
 		const { inviteId } = req.params;
 		await db.updateInvite(req.body, inviteId);
 		if (req.body.status === 1) {
@@ -64,8 +67,8 @@ async function put(req, res, next) {
 ///I AM NOT GOING BUTTON
 async function del(req, res, next) {
 	try {
-		const { id } = req.params;
-		await db.removeInvite(id);
+		const { inviteId } = req.params;
+		await db.removeInvite(inviteId);
 		res.status(200).json({
 			message: "You have been removed from the guestlist of this potluck",
 		});

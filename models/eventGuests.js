@@ -5,7 +5,7 @@ function getAttendingGuestsByPotluckId(potluckID) {
 	return db("eventGuests as g")
 		.innerJoin("users as u", "u.id", "g.id")
 		.innerJoin("potlucks as p", "p.id", "g.potluckId")
-		.where("p.id", potluckID)
+		.where("p.id", `${potluckID}`)
 		.select("p.title", "u.username", "g.potluckId");
 }
 

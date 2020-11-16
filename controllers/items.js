@@ -36,8 +36,8 @@ async function getItemsUserNeedsToBring(req, res, next) {
 async function post(req, res, next) {
 	try {
         const { id } = req.params;
-		const addItems = await db.addItem(req.body, id);
-		res.status(200).json(addItems);
+		await db.addItem(req.body, id);
+		res.status(200).json(`${req.body.name} added`);
 	} catch (err) {
 		next(err);
 	}
@@ -47,14 +47,15 @@ async function post(req, res, next) {
 async function put(req, res, next) {
 	try {
         const { itemId } = req.params;
-		const updateItems = await db.updateItems(req.body.item, itemId);
+		const updateItems = await db.updateItems(req.body, itemId);
 		if (!updateItems) {
 			return res.status(404).json({
 				message:
 					"you need to add this item before you can edit it.",
 			});
-		}
-		res.status(200).json(updateItems);
+		} if (updateItems === 1){
+		res.status(200).json({message: "Item Updated"})
+	};
 	} catch (err) {
 		next(err);
 	}
@@ -63,7 +64,7 @@ async function put(req, res, next) {
 async function del(req, res, next) {
 	try {
         const { itemId } = req.params;
-		const deleteItem = await db.removeItem(id);
+		const deleteItem = await db.removeItem(itemId);
 		if (!deleteItem) {
 			return res.status(404).json({
 				message: "item cannot be deleted as it does not exist.",

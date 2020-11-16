@@ -2,11 +2,11 @@ const db = require("../data/db");
 
 function getInvitedGuestsByPotluckId(potluckID) {
 	//Returns a list of all guests invited to the potluck
-	return db("eventGuests as g")
-		.innerJoin("users as u", "u.id", "g.id")
-		.innerJoin("potlucks as p", "p.id", "g.potluckId")
-		.where("g.id", potluckID)
-		.select("p.title", "u.username");
+	return db("invitation as i")
+		.innerJoin("users as u", "u.id", "i.guestId")
+		.innerJoin("potlucks as p", "p.id", "i.potluckId")
+		.where("p.id", `${potluckID}`)
+		.select("p.title", "u.username", "i.id");
 }
 
 function getPotlucksUserIsInvitedTo(userID) {
@@ -14,27 +14,26 @@ function getPotlucksUserIsInvitedTo(userID) {
 	return db("users as u")
 		.innerJoin("invitation as i", "i.guestId", "u.id")
 		.innerJoin("potlucks as p", "p.id", "i.potluckId")
-		.where("u.id", userID)
+		.where("u.id", `${userID}`)
 		.select("p.title", "p.date", "p.location");
 }
 
-function addInvite(data, id) {
-	return db("invitation as i")
-		.innerJoin("potlucks as p", "p.id", "i.potluckId")
-		.where("p.id", id)
-		.insert(data);
+async function addInvite(data, id) {
+	//Invites a user to a potluck
+	return db("invitation as i").insert({
+		guestId: data.id,
+		potluckId: id,
+		status: 0,
+	});
 }
 
 async function updateInvite(changes, id) {
-	const invitationInfo = await db("invitation as i")
-    .where("i.id", id);
-	await db("invitation as i")
-		.where("i.id", id)
-		.del();
+	const invitationInfo = await db("invitation as i").where("i.id", `${id}`);
+	await db("invitation as i").where("i.id", `${id}`).del();
 	if (changes.status === 1) {
 		return db("eventGuests as e")
 			.innerJoin("potlucks as p", "p.id", "i.potluckId")
-			.where("p.id", id)
+			.where("p.id", `${id}`)
 			.insert({
 				guestId: invitationInfo.guestId,
 				potluckId: invitationInfo.potluckId,
@@ -44,8 +43,7 @@ async function updateInvite(changes, id) {
 
 function removeInvite(id) {
 	return db("invitation as i")
-		.innerJoin("potlucks as p", "p.id", "i.potluckId")
-		.where("p.id", id)
+		.where("i.id", `${id}`)
 		.del();
 }
 

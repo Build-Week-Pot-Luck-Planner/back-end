@@ -20,20 +20,23 @@ function addItem(data, id) {
 	return db("item as i")
 		.innerJoin("potlucks as p", "p.id", "i.potluckId")
 		.where("p.id", id)
-		.insert(data);
+		.insert({
+			name: data.name,
+			potluckId: id,
+		});
 }
 
 function updateItems(changes, id) {
 	return db("item as i")
-		.innerJoin("potlucks as p", "p.id", "i.potluckId")
-		.where("p.id", id)
-		.update(changes);
+		.where("i.id", id)
+		.update({
+			name: changes.name,
+		});
 }
 
 function removeItem(id) {
 	return db("item as i")
-		.innerJoin("potlucks as p", "p.id", "i.potluckId")
-		.where("p.id", id)
+		.where("i.id", id)
 		.del();
 }
 
