@@ -177,3 +177,150 @@ Returns:
             pfp
         }
     }
+
+### **[GET] /api/potlucks (required)**
+Get's an array of all a users potlucks  
+*users can only get their own potlucks from this endpoint
+
+Returns: 
+
+    [
+        {
+            id,
+            organizerId,
+            title,
+            when,
+            location
+        }...
+    ]
+
+
+### **[POST] /api/potlucks (required)**
+Create's a new potluck
+
+Accepts:
+
+    {
+        title,
+        when,
+        location,
+        items: [
+            "itemName"
+            ...
+        ]
+    }
+
+Returns:
+
+    {
+        message: "Potluck created",
+        potluck: {
+            id,
+            organizerId,
+            title,
+            when,
+            location,
+            items: [
+                {
+                    id,
+                    name,
+                    guestResponsible,
+                    potluckId
+                }...
+            ]
+        }
+    }
+
+### **[GET] /api/potlucks/:id (required)**
+Returns info about a single potluck including food items and guests attending
+
+Returns:
+
+    {
+        potluckId,
+        title,
+        when,
+        location,
+        organizerId,
+        organizerUsername,
+        organizerPfp,
+        organizerLocation,
+        items: [
+            name,
+            potluckId,
+            guestUsername,
+            guestId,
+            guestPfp,
+            guestLocation
+        ],
+        guests: [
+            {
+                id,
+                username,
+                pfp,
+                location
+            }
+        ]
+    }
+
+### **[PUT] /api/potlucks/:id (required)**
+Updates the potluck with new information
+
+Accepts:
+
+    {
+        title,
+        when,
+        location,
+        items: [
+            "itemName",
+            ...
+        ]
+    }
+
+Returns:
+
+    {
+        potluckId,
+        title,
+        when,
+        location, 
+        organizerId,
+        organizerUsername,
+        organizerPfp,
+        organizerLocation,
+        items: [
+            {
+                name,
+                potluckId,
+                guestUsername,
+                guestId,
+                guestPfp,
+                guestLocation
+            }...
+        ],
+        guests: [
+            {
+                id,
+                username,
+                pfp,
+                location
+            }...
+        ]
+    }
+
+### **[DELETE] /api/potlucks/:id (required)**
+Deletes a potluck
+
+Returns: 
+
+    {
+        message: "Your potluck was deleted",
+        potluckToDelete: {
+            id,
+            organizerId,
+            title,
+            when,
+            location
+        }
+    }
