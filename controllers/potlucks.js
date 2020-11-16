@@ -34,8 +34,21 @@ async function getPotluck(req, res){
     }
 }
 
+async function updatePotluck(req, res){
+    const {potluckId} = req.params;
+    const changes = req.body;
+    try {
+        const potluck = await potlucksModel.updatePotluck(potluckId, changes);
+        res.status(200).json(potluck);
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: "A server error occurred", err});
+    }
+}
+
 module.exports = {
     getUsersPotlucks,
     createPotluck,
-    getPotluck
+    getPotluck,
+    updatePotluck
 }

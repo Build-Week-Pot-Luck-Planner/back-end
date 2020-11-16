@@ -15,10 +15,14 @@ async function createPotluck(organizerId, title, when, location, items){
     }).returning("id");
     const potluck = await db("potlucks").where({id: newPotluckId[0]}).first();
 
+    const itemsArr = []
     for(let item of items){
-        await db("item")
-        .insert({name: item, potluckId: potluck.id})
+        itemsArr.push({
+            name: item,
+            potluckId: potluck.id
+        });
     }
+    await db("item").insert(itemsArr);
     items = await db("item").where({potluckId: potluck.id});
 
     potluck.items = items;
@@ -49,8 +53,44 @@ async function getPotluck(potluckId){
     return potluck;
 }
 
+async function updatePotluck(potluckId, changes){
+    let items = changes.items;
+    changes = {
+        title: changes.title || undefined,
+        when: changes.when || undefined,
+        location: changes.location || undefined
+    }
+    if(changes.title || changes.when || changes.location){
+        await db("potlucks as p")
+        .update(changes);
+    }
+
+    //the following for updating items isn't really the best way but its the fastest and easiest
+    //for now with the current front-end design; could be refactored lated
+   
+    //delete all items
+    await db("item as i")
+    .where({potluckId})
+    .del();
+
+    //recreate them with the changes
+    const newItems = [];
+    if(items){
+        for(let item of items){
+            newItems.push({
+                name: item,
+                potluckId: potluckId
+            });
+        }
+        await db("item").insert(newItems);
+    }
+    
+    return getPotluck(potluckId);
+}
+
 module.exports = {
     getUsersPotlucks,
     createPotluck,
-    getPotluck
+    getPotluck,
+    updatePotluck
 }
