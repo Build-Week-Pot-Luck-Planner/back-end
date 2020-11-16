@@ -10,9 +10,10 @@ router.get("/", (req, res)=>{
 
 const authRoutes = require("./auth");
 const userRoutes = require("./users");
+const potluckRoutes = require("./potlucks");
 
 router.use('/auth', authRoutes);
-
+router.use("/potlucks", potluckRoutes);
 router.use('/potlucks', invitesRouter )
 router.use("/potlucks/:id", eventGuests);
 router.use("/", items);
