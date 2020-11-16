@@ -7,5 +7,6 @@ router.get("/", restricted, potlucksController.getUsersPotlucks);
 router.post("/", restricted, potlucksController.createPotluck);
 router.get("/:potluckId", restricted, potlucksController.getPotluck);
 router.put("/:potluckId", restricted, potlucksController.updatePotluck);
+router.delete("/:potluckId", restricted, potlucksController.deletePotluck);
 
 module.exports = router;

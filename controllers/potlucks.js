@@ -46,9 +46,22 @@ async function updatePotluck(req, res){
     }
 }
 
+async function deletePotluck(req, res){
+    const {potluckId} = req.params;
+    try {
+        const potluckToDelete = await potlucksModel.deletePotluck(potluckId, req.user.id);
+        if(!potluckToDelete) return res.status(404).json({message: "Potluck does not exist"});
+        res.status(200).json({message: "Your potluck was deleted", potluckToDelete});
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: "A server error occurred"});
+    }
+}
+
 module.exports = {
     getUsersPotlucks,
     createPotluck,
     getPotluck,
-    updatePotluck
+    updatePotluck,
+    deletePotluck
 }

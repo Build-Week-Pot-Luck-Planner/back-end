@@ -88,9 +88,19 @@ async function updatePotluck(potluckId, changes){
     return getPotluck(potluckId);
 }
 
+async function deletePotluck(potluckId, userId){
+    if(!potluckId) throw new Error("Potluck id must be provided");
+    
+    const potluckToDelete = await db("potlucks").where({id: potluckId}).first();
+    if(potluckToDelete && potluckToDelete.organizerId !== userId) throw new Error("This is not your potluck");
+    if(potluckToDelete) await db("potlucks").where({id: potluckId}).del();
+    return potluckToDelete;
+}
+
 module.exports = {
     getUsersPotlucks,
     createPotluck,
     getPotluck,
-    updatePotluck
+    updatePotluck,
+    deletePotluck
 }
