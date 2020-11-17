@@ -456,11 +456,22 @@ Returns:
         message: "You have been removed from the guestlist of this potluck"
     }
 
-### **[GET] /api/potlucks/:id/eventGuests (required)**
+### **[GET] /api/potlucks/:id/:id/eventGuests (required)**
 Gets all guests attending a potluck
 
 Returns:
 
     {
-        
+        title,
+        username,
+        potluckId
+    }
+
+### **[DELETE] /eventGuests/:guestId (required)**
+Removes a user from the guest list
+
+Returns:
+
+    {
+            message: "Guest successfully removed from guestlist"
     }
