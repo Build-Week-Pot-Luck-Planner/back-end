@@ -18,7 +18,7 @@ router.use('/auth', authRoutes);
 
 router.use("/potlucks", potluckRoutes);
 router.use('/potlucks', invitesRouter )
-router.use("/potlucks/:id", eventGuests);
+router.use("/potlucks", eventGuests);
 router.use("/", items);
 router.use("/", invites);
 router.use("/users", userRoutes);
