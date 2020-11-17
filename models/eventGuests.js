@@ -3,16 +3,16 @@ const db = require("../data/db");
 function getAttendingGuestsByPotluckId(potluckID) {
 	//Returns a list of all guests going to the potluck
 	return db("eventGuests as g")
-		.innerJoin("users as u", "u.id", "g.id")
+		.where("g.potluckId", `${potluckID}`)
+		.innerJoin("users as u", "u.id", "g.guestId")
 		.innerJoin("potlucks as p", "p.id", "g.potluckId")
-		.where("p.id", `${potluckID}`)
 		.select("p.title", "u.username", "g.potluckId");
 }
 
 
 ///AS NEEDED
 function getMaybesByPotluckId(potluckID) {
-	//Returns a list of all guests going to the potluck
+	//Returns a list of all guests who have not said if they are going to the potluck or not
 	return db("eventGuests as g")
 		.innerJoin("users as u", "u.id", "g.id")
 		.innerJoin("potlucks as p", "p.id", "g.potluckId")
@@ -22,7 +22,7 @@ function getMaybesByPotluckId(potluckID) {
 }
 
 function getNotAttendingByPotluckId(potluckID) {
-	//Returns a list of all guests going to the potluck
+	//Returns a list of all guests not going to the potluck
 	return db("eventGuests as g")
 		.innerJoin("users as u", "u.id", "g.id")
 		.innerJoin("potlucks as p", "p.id", "g.potluckId")

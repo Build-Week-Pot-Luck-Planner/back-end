@@ -5,7 +5,7 @@ function getItemsByPotluckId(potluckId) {
 	return db("item as i")
 		.innerJoin("potlucks as p", "p.id", "i.potluckId")
 		.where("p.id", potluckId)
-		.select("i.name", "i.potluckId");
+		.select("i.name", "i.potluckId", "i.id");
 }
 
 function getItemsByUserId(userID) {
