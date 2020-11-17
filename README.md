@@ -324,3 +324,134 @@ Returns:
             location
         }
     }
+
+### **[GET] /api/potlucks/:id/items (required)**
+Gets all items for a potluck
+
+Returns:
+
+    [
+        {
+            name,
+            potluckId
+        }
+    ]
+
+### **[GET] /api/users/:id/items (required)***
+Gets all items a user plans to bring
+
+Returns:
+    [
+        {
+            id,
+            name,
+            guestResponsible,
+            potluckId
+        }
+    ]
+
+### **[POST] /potlucks/:id/items (required)**
+Adds an item to a potluck
+
+Accepts:
+
+    {
+        name,
+    }
+
+Returns: 
+
+    "[item's name] added"
+
+### **[PUT] /potlucks/:potluckId/items/:itemId (required)**
+updates a specific potluck item
+
+Accepts:
+
+    {
+        name,
+    }
+
+Returns: 
+
+    {
+        message: "Item updated"
+    }
+
+### **[DELETE] /potlucks/:potluckId/items/:itemId (required)**
+Removes a specific item from a potluck
+
+Returns:
+
+    {
+        message: "You have removed this item from the potluck"
+    }
+
+### **[GET] /api/potlucks/:id/invitations (required)**
+Gets an array of invitations for a potluck
+
+Returns:
+    
+    [
+        {
+            title,
+            username,
+            id
+        }...
+    ]
+
+### **[GET] /users/:id/invitations (required)**
+Gets all invitations for a user
+
+Returns:
+
+    [
+        {
+            title,
+            username,
+            id
+        }...
+    ]
+
+### **[POST] /potlucks/:id/invitations (required)**
+Invites a user to a potluck
+
+Accepts:
+
+    {
+        id (the guest's id),
+        username
+    }
+
+Returns:
+
+    "[guests username] successfully invited"
+
+### **[PUT] /potlucks/:potluckId/invitations/:inviteId (required)**
+Route for user to accept or decline an invite
+
+Accepts:
+
+    {
+        status: (-1 for decline, 1 for accept)
+    }
+
+Returns:
+
+    when accepted
+    {
+        message: "Congrats - you are on the guestlist"
+    }
+
+    when declined
+    {
+        message: "Hope to see you at the next one!"
+    }
+
+### **[DELETE] /potlucks/:id/invitations/:inviteId (required)**
+
+Returns:
+
+    {
+        message: "You have been removed from the guestlist of this potluck"
+    }
