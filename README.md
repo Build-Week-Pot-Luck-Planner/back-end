@@ -350,7 +350,7 @@ Returns:
         }
     ]
 
-### **[POST] /potlucks/:id/items (required)**
+### **[POST] /api/potlucks/:id/items (required)**
 Adds an item to a potluck
 
 Accepts:
@@ -363,7 +363,7 @@ Returns:
 
     "[item's name] added"
 
-### **[PUT] /potlucks/:potluckId/items/:itemId (required)**
+### **[PUT] /api/potlucks/:potluckId/items/:itemId (required)**
 updates a specific potluck item
 
 Accepts:
@@ -378,7 +378,7 @@ Returns:
         message: "Item updated"
     }
 
-### **[DELETE] /potlucks/:potluckId/items/:itemId (required)**
+### **[DELETE] /api/potlucks/:potluckId/items/:itemId (required)**
 Removes a specific item from a potluck
 
 Returns:
@@ -400,7 +400,7 @@ Returns:
         }...
     ]
 
-### **[GET] /users/:id/invitations (required)**
+### **[GET] /api/users/:id/invitations (required)**
 Gets all invitations for a user
 
 Returns:
@@ -413,7 +413,7 @@ Returns:
         }...
     ]
 
-### **[POST] /potlucks/:id/invitations (required)**
+### **[POST] /api/potlucks/:id/invitations (required)**
 Invites a user to a potluck
 
 Accepts:
@@ -427,7 +427,7 @@ Returns:
 
     "[guests username] successfully invited"
 
-### **[PUT] /potlucks/:potluckId/invitations/:inviteId (required)**
+### **[PUT] /api/potlucks/:potluckId/invitations/:inviteId (required)**
 Route for user to accept or decline an invite
 
 Accepts:
@@ -448,10 +448,19 @@ Returns:
         message: "Hope to see you at the next one!"
     }
 
-### **[DELETE] /potlucks/:id/invitations/:inviteId (required)**
+### **[DELETE] /api/potlucks/:id/invitations/:inviteId (required)**
 
 Returns:
 
     {
         message: "You have been removed from the guestlist of this potluck"
+    }
+
+### **[GET] /api/potlucks/:id/eventGuests (required)**
+Gets all guests attending a potluck
+
+Returns:
+
+    {
+        
     }
