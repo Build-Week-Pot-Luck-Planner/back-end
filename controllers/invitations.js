@@ -48,7 +48,6 @@ async function post(req, res, next) {
 //UPDATE INVITED GUESTS
 async function put(req, res, next) {
 	try {
-		console.log("err");
 		const { inviteId } = req.params;
 		await db.updateInvite(req.body, inviteId);
 		if (req.body.status === 1) {
