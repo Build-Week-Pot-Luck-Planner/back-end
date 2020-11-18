@@ -177,3 +177,301 @@ Returns:
             pfp
         }
     }
+
+### **[GET] /api/potlucks (required)**
+Get's an array of all a users potlucks  
+*users can only get their own potlucks from this endpoint
+
+Returns: 
+
+    [
+        {
+            id,
+            organizerId,
+            title,
+            when,
+            location
+        }...
+    ]
+
+
+### **[POST] /api/potlucks (required)**
+Create's a new potluck
+
+Accepts:
+
+    {
+        title,
+        when,
+        location,
+        items: [
+            "itemName"
+            ...
+        ]
+    }
+
+Returns:
+
+    {
+        message: "Potluck created",
+        potluck: {
+            id,
+            organizerId,
+            title,
+            when,
+            location,
+            items: [
+                {
+                    id,
+                    name,
+                    guestResponsible,
+                    potluckId
+                }...
+            ]
+        }
+    }
+
+### **[GET] /api/potlucks/:id (required)**
+Returns info about a single potluck including food items and guests attending
+
+Returns:
+
+    {
+        potluckId,
+        title,
+        when,
+        location,
+        organizerId,
+        organizerUsername,
+        organizerPfp,
+        organizerLocation,
+        items: [
+            name,
+            potluckId,
+            guestUsername,
+            guestId,
+            guestPfp,
+            guestLocation
+        ],
+        guests: [
+            {
+                id,
+                username,
+                pfp,
+                location
+            }
+        ]
+    }
+
+### **[PUT] /api/potlucks/:id (required)**
+Updates the potluck with new information
+
+Accepts:
+
+    {
+        title,
+        when,
+        location,
+        items: [
+            "itemName",
+            ...
+        ]
+    }
+
+Returns:
+
+    {
+        potluckId,
+        title,
+        when,
+        location, 
+        organizerId,
+        organizerUsername,
+        organizerPfp,
+        organizerLocation,
+        items: [
+            {
+                name,
+                potluckId,
+                guestUsername,
+                guestId,
+                guestPfp,
+                guestLocation
+            }...
+        ],
+        guests: [
+            {
+                id,
+                username,
+                pfp,
+                location
+            }...
+        ]
+    }
+
+### **[DELETE] /api/potlucks/:id (required)**
+Deletes a potluck
+
+Returns: 
+
+    {
+        message: "Your potluck was deleted",
+        potluckToDelete: {
+            id,
+            organizerId,
+            title,
+            when,
+            location
+        }
+    }
+
+### **[GET] /api/potlucks/:id/items (required)**
+Gets all items for a potluck
+
+Returns:
+
+    [
+        {
+            name,
+            potluckId
+        }
+    ]
+
+### **[GET] /api/users/:id/items (required)***
+Gets all items a user plans to bring
+
+Returns:
+    [
+        {
+            id,
+            name,
+            guestResponsible,
+            potluckId
+        }
+    ]
+
+### **[POST] /api/potlucks/:id/items (required)**
+Adds an item to a potluck
+
+Accepts:
+
+    {
+        name,
+    }
+
+Returns: 
+
+    "[item's name] added"
+
+### **[PUT] /api/potlucks/:potluckId/items/:itemId (required)**
+updates a specific potluck item
+
+Accepts:
+
+    {
+        name,
+    }
+
+Returns: 
+
+    {
+        message: "Item updated"
+    }
+
+### **[DELETE] /api/potlucks/:potluckId/items/:itemId (required)**
+Removes a specific item from a potluck
+
+Returns:
+
+    {
+        message: "You have removed this item from the potluck"
+    }
+
+### **[GET] /api/potlucks/:id/invitations (required)**
+Gets an array of invitations for a potluck
+
+Returns:
+    
+    [
+        {
+            title,
+            username,
+            id
+        }...
+    ]
+
+### **[GET] /api/users/:id/invitations (required)**
+Gets all invitations for a user
+
+Returns:
+
+    [
+        {
+            title,
+            username,
+            id
+        }...
+    ]
+
+### **[POST] /api/potlucks/:id/invitations (required)**
+Invites a user to a potluck
+
+Accepts:
+
+    {
+        id (the guest's id),
+        username
+    }
+
+Returns:
+
+    "[guests username] successfully invited"
+
+### **[PUT] /api/potlucks/:potluckId/invitations/:inviteId (required)**
+Route for user to accept or decline an invite
+
+Accepts:
+
+    {
+        status: (-1 for decline, 1 for accept)
+    }
+
+Returns:
+
+    when accepted
+    {
+        message: "Congrats - you are on the guestlist"
+    }
+
+    when declined
+    {
+        message: "Hope to see you at the next one!"
+    }
+
+### **[DELETE] /api/potlucks/:id/invitations/:inviteId (required)**
+
+Returns:
+
+    {
+        message: "You have been removed from the guestlist of this potluck"
+    }
+
+### **[GET] /api/potlucks/:id/:id/eventGuests (required)**
+Gets all guests attending a potluck
+
+Returns:
+
+    {
+        title,
+        username,
+        potluckId
+    }
+
+### **[DELETE] /eventGuests/:guestId (required)**
+Removes a user from the guest list
+
+Returns:
+
+    {
+            message: "Guest successfully removed from guestlist"
+    }
