@@ -36,6 +36,7 @@ async function getPotluckInvites(req, res, next) {
 async function post(req, res, next) {
 	try {
 		const { id } = req.params;
+		console.log(id)
 		await db.addInvite(req.body, id);
 		res.status(200).json({
 			message: `${req.body.username} successfully invited`

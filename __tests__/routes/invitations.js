@@ -54,3 +54,6 @@ test("EVENT INVITATIONS PUT", async () => {
 	expect(res.type).toBe("application/json");
 	expect(res.body.message).toBe("Congrats - you are on the guestlist");
 });
+
+//DElETE
+
