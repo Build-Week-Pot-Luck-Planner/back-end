@@ -8,7 +8,6 @@ exports.up = async function (knex) {
 			.inTable("users")
 			.onUpdate("CASCADE")
 			.onDelete("CASCADE")
-			.notNull();
 		table
 			.integer("potluckId")
 			.references("id")
