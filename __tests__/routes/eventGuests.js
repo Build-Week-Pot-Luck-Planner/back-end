@@ -8,7 +8,7 @@ beforeEach(async () => {
 });
 
 let token =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjA1NTY4NTUxLCJleHAiOjE2MDU2NTQ5NTF9.7ZRa5y_oJvq1OtuTLzqEFSys8nYKo6C0sel3eRSlaBQ";
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjA1ODEzNTY1LCJleHAiOjE2MDU4OTk5NjV9.oTOn6_k5dH7peDVupg--VWu3KrlacLaUGR2y5LmlmGo";
 
 
 afterAll(async () => {
