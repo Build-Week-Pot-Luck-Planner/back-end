@@ -20,6 +20,7 @@ function getPotlucksUserIsInvitedTo(userID) {
 
 async function addInvite(data, id) {
 	//Invites a user to a potluck
+	
 	return db("invitation as i").insert({
 		guestId: data.guestId,
 		potluckId: id,
