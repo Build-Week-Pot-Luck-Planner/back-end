@@ -16,6 +16,7 @@ exports.up = async function (knex) {
 			.onDelete("CASCADE")
 			.notNull();
 		table.integer("status").defaultTo(0);
+		table.unique(["potluckId", "guestId"]);
 	});
 };
 
