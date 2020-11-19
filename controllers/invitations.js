@@ -36,8 +36,17 @@ async function getPotluckInvites(req, res, next) {
 async function post(req, res, next) {
 	try {
 		const { id } = req.params;
-		console.log(id)
 		await db.addInvite(req.body, id);
+		if (!req.body.guestId) {
+			return res.status(404).json({
+				message: "missing valid guestId",
+			});
+		}
+		if (!req.body.username) {
+			return res.status(404).json({
+				message: "please send me a username in the request body",
+			});
+		}
 		res.status(200).json({
 			message: `${req.body.username} successfully invited`
 		});
