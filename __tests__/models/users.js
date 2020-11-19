@@ -12,7 +12,7 @@
 
 //     it("Should return an array of all users matching a query", async()=>{
 //         let users = await usersModel.getUsers("T");
-
+        
 //         expect(users).toHaveLength(1);
 //         expect(users[0].username).toBe("Test");
 
@@ -52,7 +52,7 @@
 
 //     it("Should return a newly created user with required fields", async()=>{
 //         const newUser = await usersModel.createUser("person@gmail.com", "person", "password");
-
+        
 //         expect(newUser.id).toBe(4);
 //         expect(newUser.email).toBe("person@gmail.com");
 //         expect(newUser.username).toBe("person");
@@ -88,12 +88,12 @@
 
 //     it("Should update only the specified fields", async ()=>{
 //         let updatedUser = await usersModel.updateUser(1, {username: "newUsername"});
-
+        
 //         expect(updatedUser.email).toBe("test@gmail.com");
 //         expect(updatedUser.username).toBe("newUsername");
 //         expect(updatedUser.location).toBe(null);
 //         expect(updatedUser.pfp).toBe('https://64.media.tumblr.com/ac5af271a7b2cff39f4b44d1b1608f23/219c790c4b028ed5-87/s640x960/b7344c1c147fbeb5586b8f2395fdf24c70d11749.jpg');
-
+        
 //         updatedUser = await usersModel.updateUser(1, {email: "newemail@gmail.com", pfp: "www.none.com/none.jpg"});
 //         expect(updatedUser.email).toBe("newemail@gmail.com");
 //         expect(updatedUser.username).toBe("newUsername");
@@ -137,7 +137,7 @@
 //         let users = await db("users");
 //         expect(users).toHaveLength(3);
 
-//         const deletedUser = await usersModel.deleteUser(1);
+//         const deletedUser = await usersModel.deleteUser(1);        
 //         expect(deletedUser.username).toBe("Test");
 
 //         users = await db("users");

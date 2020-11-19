@@ -20,12 +20,13 @@ async function getInvitedGuests(req, res, next) {
 async function getPotluckInvites(req, res, next) {
 	try {
 		const { id } = req.params;
-		const potluckInvites = await db.getInvitedGuestsByPotluckId(id);
+		const potluckInvites = await db.getPotlucksUserIsInvitedTo(id);
 		if (!potluckInvites) {
 			return res.status(404).json({
 				message: "you have not been invited to any potlucks yet",
 			});
 		}
+		console.log(potluckInvites)
 		res.status(200).json(potluckInvites);
 	} catch (err) {
 		next(err);
