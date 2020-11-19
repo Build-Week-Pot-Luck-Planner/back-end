@@ -82,7 +82,7 @@ async function updatePotluck(potluckId, changes){
                 potluckId: potluckId
             });
         }
-        await db("item").insert(newItems);
+        if(newItems[0]) await db("item").insert(newItems);
     }
     
     return getPotluck(potluckId);
