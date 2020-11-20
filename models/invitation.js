@@ -28,7 +28,7 @@ async function addInvite(data, id) {
 }
 
 async function updateInvite(changes, id) {
-	const invitationInfo = await db("invitation as i").where("i.id", `${id}`);
+	const invitationInfo = await db("invitation as i").where("i.id", id).first();
 	await db("invitation as i").where("i.id", `${id}`).del();
 	if (changes.status === 1) {
 		return db("eventGuests as e")
