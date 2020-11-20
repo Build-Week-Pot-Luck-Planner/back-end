@@ -15,8 +15,9 @@ function assignItemByUserId(itemID, userID) {
 	console.log(`userId = ${userID}, itemId = ${itemID}`);
 	return db("item as i")
 		.innerJoin("users as u", "u.id", "i.guestResponsible")
-		.update("i.guestResponsible", `${userID}`)
-		.where("i.id", `${itemID}`);
+		.where("i.id", `${itemID}`)
+		.update("guestResponsible", `${userID}`)
+		
 }
 
 function getItemsByUserId(userID) {
