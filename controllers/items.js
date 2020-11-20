@@ -46,17 +46,18 @@ async function post(req, res, next) {
 //UPDATE ITEMS
 async function put(req, res, next) {
 	try {
-        const { itemId } = req.params;
-		const updateItems = await db.updateItems(req.body, itemId);
-		if (!updateItems) {
-			return res.status(404).json({
-				message:
-					"you need to add this item before you can edit it.",
-			});
-		} if (updateItems === 1){
-		res.status(200).json({message: "Item Updated"})
-	};
+		const { itemId } = req.params;
+		// const updateItems = await db.updateItems(req.body, itemId);
+		// if (!updateItems) {
+		// 	return res.status(404).json({
+		// 		message:
+		// 			"you need to add this item before you can edit it.",
+		// 	});
+		// } if (updateItems === 1){		
+		const assignItem = await db.assignItemByUserId(itemId, req.body.userId);
+			res.status(200).json({message: `Thanks for choosing an item`})
 	} catch (err) {
+		console.log(`ERROR MESSAGE: ${err.message}`)
 		next(err);
 	}
 }
