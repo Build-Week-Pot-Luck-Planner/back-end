@@ -62,7 +62,8 @@ async function updatePotluck(potluckId, changes){
     }
     if(changes.title || changes.when || changes.location){
         await db("potlucks as p")
-        .update(changes);
+        .update(changes)
+        .where({id: potluckId});
     }
 
     //the following for updating items isn't really the best way but its the fastest and easiest
