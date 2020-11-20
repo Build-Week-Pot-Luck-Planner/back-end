@@ -26,7 +26,7 @@ async function getPotluckInvites(req, res, next) {
 				message: "you have not been invited to any potlucks yet",
 			});
 		}
-		console.log(potluckInvites)
+	
 		res.status(200).json(potluckInvites);
 	} catch (err) {
 		next(err);
