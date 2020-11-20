@@ -8,6 +8,17 @@ function getItemsByPotluckId(potluckId) {
 		.select("i.name", "i.potluckId", "i.id");
 }
 
+//allow user to select item
+
+function assignItemByUserId(itemID, userID) {
+	//allows a user to select an item.
+	console.log(`userId = ${userID}, itemId = ${itemID}`);
+	return db("item as i")
+		.innerJoin("users as u", "u.id", "i.guestResponsible")
+		.update("i.guestResponsible", `${userID}`)
+		.where("i.id", `${itemID}`);
+}
+
 function getItemsByUserId(userID) {
 	//Returns the item a user is required to bring.
 	return db("item as i")
@@ -27,22 +38,19 @@ function addItem(data, id) {
 }
 
 function updateItems(changes, id) {
-	return db("item as i")
-		.where("i.id", id)
-		.update({
-			name: changes.name,
-		});
+	return db("item as i").where("i.id", id).update({
+		name: changes.name,
+	});
 }
 
 function removeItem(id) {
-	return db("item as i")
-		.where("i.id", id)
-		.del();
+	return db("item as i").where("i.id", id).del();
 }
 
 module.exports = {
 	getItemsByUserId,
 	getItemsByPotluckId,
+	assignItemByUserId,
 	addItem,
 	updateItems,
 	removeItem,
