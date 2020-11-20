@@ -15,7 +15,7 @@ function getPotlucksUserIsInvitedTo(userID) {
 		.innerJoin("invitation as i", "i.guestId", "u.id")
 		.innerJoin("potlucks as p", "p.id", "i.potluckId")
 		.where("u.id", `${userID}`)
-		.select("p.title", "p.when", "p.location", "p.id", "i.id", "u.username");
+		.select("i.*", "p.*", "u.*");
 }
 
 async function addInvite(data, id) {
