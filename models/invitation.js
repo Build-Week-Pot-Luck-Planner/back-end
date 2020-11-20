@@ -11,11 +11,17 @@ function getInvitedGuestsByPotluckId(potluckID) {
 
 function getPotlucksUserIsInvitedTo(userID) {
 	//Returns a list of all guests invited to the potluck
-	return db("users as u")
-		.innerJoin("invitation as i", "i.guestId", "u.id")
+	return db("invitation as i")
 		.innerJoin("potlucks as p", "p.id", "i.potluckId")
-		.where("u.id", `${userID}`)
-		.select("i.*", "p.*", "u.*");
+		.innerJoin("users as u", "u.id", "p.organizerId")
+		.where("i.guestId", `${userID}`)
+		.select(
+			"i.id as invitationId",
+			"p.title",
+			"p.id as potluckId",
+			"u.username as potluckOrganizer",
+			"u.id as guestId"
+		);
 }
 
 async function addInvite(data, id) {
